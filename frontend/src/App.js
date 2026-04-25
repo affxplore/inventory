@@ -11,7 +11,7 @@ import {
 //     The value should be your API Gateway Invoke URL + /barang
 //     e.g. https://abc123.execute-api.us-east-1.amazonaws.com/prod/barang
 // ============================================================
-const API_URL = process.env.REACT_APP_API_URL || "https://mt3pevwj6a.execute-api.us-east-1.amazonaws.com/prod";
+const API_URL = process.env.REACT_APP_API_URL || "https://mt3pevwj6a.execute-api.us-east-1.amazonaws.com/prod/";
 // ============================================================
 
 // ─── helpers ────────────────────────────────────────────────
@@ -241,7 +241,7 @@ const App = () => {
   const fetchHistory = async (id) => {
     try {
       setHistLoading(true);
-      const res  = await fetch(API_URL);
+      const res  = await fetch(`${API_URL}/${id}/history`);
       const data = await res.json();
       setHistory(Array.isArray(data) ? data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)) : []);
     } catch { setHistory([]); }
@@ -251,7 +251,7 @@ const App = () => {
   // ── Handle stock update ──
   const handleStock = async (id, aksi, jumlah) => {
     try {
-      const res  = await fetch(API_URL); {
+      const res = await fetch(`${API_URL}/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ aksi, jumlah })
@@ -270,7 +270,7 @@ const App = () => {
   const handleAddItem = async (nama, stok) => {
     try {
       const res  = await fetch(API_URL, {
-        method: 'POST',
+        method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nama, stok })
       });
@@ -287,7 +287,7 @@ const App = () => {
   // ── Delete item ──
   const handleDelete = async (id, nama) => {
     try {
-      const res  = await fetch(API_URL);, { method: 'DELETE' });
+      const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error('Gagal menghapus barang');
       showToast(`"${nama}" berhasil dihapus.`, 'success');
       if (selectedItem?.id === id) { setSelectedItem(null); setHistory([]); }
@@ -299,7 +299,7 @@ const App = () => {
     }
   };
 
-  useEffect(() => { fetchItems(); }, [fetchItems]) ;
+  useEffect(() => { fetchItems(); }, [fetchItems]);
 
   // ── Stats ──
   const totalItems = items.length;
