@@ -299,7 +299,7 @@ const App = () => {
     }
   };
 
-  useEffect(() => { fetchItems(); }, [fetchItems]) };
+  useEffect(() => { fetchItems(); }, [fetchItems]) ;
 
   // ── Stats ──
   const totalItems = items.length;
