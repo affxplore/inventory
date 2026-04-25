@@ -11,7 +11,7 @@ import {
 //     The value should be your API Gateway Invoke URL + /barang
 //     e.g. https://abc123.execute-api.us-east-1.amazonaws.com/prod/barang
 // ============================================================
-const API_URL = process.env.REACT_APP_API_URL || "https://mt3pevwj6a.execute-api.us-east-1.amazonaws.com/prod/barang";
+const API_URL = process.env.REACT_APP_API_URL || "https://mt3pevwj6a.execute-api.us-east-1.amazonaws.com/prod";
 // ============================================================
 
 // ─── helpers ────────────────────────────────────────────────
