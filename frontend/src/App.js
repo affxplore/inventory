@@ -287,7 +287,7 @@ const App = () => {
   // ── Delete item ──
   const handleDelete = async (id, nama) => {
     try {
-      const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+      const res = await fetch(`${API_URL}/barang/${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error('Gagal menghapus barang');
       showToast(`"${nama}" berhasil dihapus.`, 'success');
       if (selectedItem?.id === id) { setSelectedItem(null); setHistory([]); }
