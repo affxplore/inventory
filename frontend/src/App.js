@@ -11,7 +11,7 @@ import {
 //     The value should be your API Gateway Invoke URL + /barang
 //     e.g. https://abc123.execute-api.us-east-1.amazonaws.com/prod/barang
 // ============================================================
-const API_URL = process.env.REACT_APP_API_URL || "https://mt3pevwj6a.execute-api.us-east-1.amazonaws.com/prod/";
+const API_URL = process.env.REACT_APP_API_URL || "https://mt3pevwj6a.execute-api.us-east-1.amazonaws.com/prod";
 // ============================================================
 
 // ─── helpers ────────────────────────────────────────────────
@@ -224,7 +224,7 @@ const App = () => {
   const fetchItems = useCallback(async () => {
     try {
       setLoading(true);
-      const res  = await fetch(API_URL);
+      const res = await fetch(`${API_URL}/barang`); 
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       setItems(Array.isArray(data) ? data : []);
@@ -269,8 +269,8 @@ const App = () => {
   // ── Add new item ──
   const handleAddItem = async (nama, stok) => {
     try {
-      const res  = await fetch(API_URL, {
-        method: 'GET',
+      const res = await fetch(`${API_URL}/barang`, {
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nama, stok })
       });
