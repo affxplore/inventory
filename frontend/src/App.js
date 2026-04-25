@@ -241,7 +241,7 @@ const App = () => {
   const fetchHistory = async (id) => {
     try {
       setHistLoading(true);
-      const res  = await fetch(`${API_URL}/${id}/history`);
+      const res  = await fetch(API_URL);
       const data = await res.json();
       setHistory(Array.isArray(data) ? data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)) : []);
     } catch { setHistory([]); }
@@ -251,7 +251,7 @@ const App = () => {
   // ── Handle stock update ──
   const handleStock = async (id, aksi, jumlah) => {
     try {
-      const res = await fetch(`${API_URL}/${id}`, {
+      const res  = await fetch(API_URL); {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ aksi, jumlah })
@@ -287,7 +287,7 @@ const App = () => {
   // ── Delete item ──
   const handleDelete = async (id, nama) => {
     try {
-      const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+      const res  = await fetch(API_URL);, { method: 'DELETE' });
       if (!res.ok) throw new Error('Gagal menghapus barang');
       showToast(`"${nama}" berhasil dihapus.`, 'success');
       if (selectedItem?.id === id) { setSelectedItem(null); setHistory([]); }
